@@ -1,4 +1,16 @@
-var connection = require("../config/connection.js");
+var connection = require("./connection.js");
+
+function printQuestionMarks(num) {
+  var arr = [];
+
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  }
+
+  return arr.toString();
+}
+
+
 
 var orm = {
     selectAll: function(tableInput, cb){
@@ -6,23 +18,29 @@ var orm = {
         connection.query(queryString, function(err, result) {
             if (err) throw err;
             cb(result);
-            console.log(result);
+            // console.log(result);
     });
 },
-  insertOne: function(whatToSelect, tableInput) {
-    var queryString = "SELECT ?? FROM ??";
-    connection.query(queryString, [whatToSelect, tableInput], function(err, result) {
-      if (err) throw err;
-      cb(result);
-      console.log(result);
-    });
-  },
-  updateOne: function(tableInput, colToSearch, valOfCol) {
-    var queryString = "SELECT * FROM ?? WHERE ?? = ?";
+insertOne: function(vals, cb) {
+  var queryString = `INSERT INTO burgers(burger_name) VALUES ('${vals}')`
+  
+  
+  console.log(queryString);
+
+  connection.query(queryString,function(err, result) {
+    if (err) {
+      throw err;
+    }
+
+    cb(result);
+  });
+},
+  updateOne: function(condition, cb) {
+    var queryString = `UPDATE burgers SET devoured = true WHERE burgerID = "${condition}"`;
 
     console.log(queryString);
 
-    connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
+    connection.query(queryString, function(err, result) {
       if (err) throw err;
       cb(result);
       console.log(result);
