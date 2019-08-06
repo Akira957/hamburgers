@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS burgers_db;
 
 CREATE DATABASE burgers_db;
 
-USE burgers_db;
+USE pymtsb1nmbqcm10f;
 
 CREATE TABLE burgers (
 burgerID INT(10) NOT NULL AUTO_INCREMENT,
